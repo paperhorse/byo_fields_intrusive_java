@@ -1,3 +1,8 @@
+/*
+ (C) Paperhorse 2016
+ MIT Licenced
+ 
+*/
 
 import java.util.Comparator;
 

@@ -1,4 +1,12 @@
+/*
+ (C) Paperhorse 2016
+ MIT Licenced
+ 
+ Intrusive Double Linked List
+ 
+*/
 import java.util.Comparator;
+
 
 public abstract class IntruList<T> {
     T head;
@@ -107,6 +115,18 @@ public abstract class IntruList<T> {
     public void sort(Comparator<T> cmp) {
         head=sort(count, cmp);
         tail=doubleLink(head);
+    }
+    
+    public T iterateNext(T e) {
+        return getNextLink(e);
+    }
+    
+    public T iteratePrevious(T e) {
+        return getPreviousLink(e);
+    }
+    
+    public T iterateStart() {
+        return head;
     }
     
 }
