@@ -63,9 +63,12 @@ public abstract class IntruTreeMap<T extends Comparable<T> > {
             r=findRebalance(e,cc);
             if (r==null) return;
             p=getParentLink(r);
+            boolean isLeft=false;
+            if (p!=null && getLeftLink(p)==r) isLeft=true;
             q=rebalance(r,cc[0]);
+            setParentLink(q,p);
             if (p==null) root=q;
-            else if (getLeftLink(p)==r)
+            else if (isLeft)
                 setLeftLink(p,q);
             else
                 setRightLink(p,q);
@@ -82,7 +85,7 @@ public abstract class IntruTreeMap<T extends Comparable<T> > {
             if (getLeftLink(p)==q) other=getRightLink(p);
             else other=getLeftLink(p);
             otherCount=countTree(other);
-            if ((otherCount+c+1)*alpha < (double) otherCount)
+            if ((otherCount+c+1)*alpha < (double) c)
                 break;
             c=otherCount+c+1;
             q=p;
@@ -177,4 +180,22 @@ public abstract class IntruTreeMap<T extends Comparable<T> > {
         }
     }
     
+    
+    public void printtree() {
+        System.out.println("** "+count+" *********");
+        printtree("",root,0,null);
+        System.out.println("***************");
+        System.out.println();
+    }
+    
+    private void printtree(String lr, T q, int indent, T parent) {
+        if (q==null) return;
+        printtree("/",getLeftLink(q),indent+2,q);
+        for (int i=0;i<indent;i++) System.out.print(" ");
+        System.out.print(lr+q);
+        if (parent!=getParentLink(q))
+            System.out.print(" BAD PARENT");
+        System.out.println();
+        printtree("\\",getRightLink(q),indent+2,q);
+    }
 }
