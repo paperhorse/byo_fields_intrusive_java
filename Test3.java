@@ -1,3 +1,9 @@
+/*
+
+ (C) Paperhorse 2016
+ MIT Licenced
+*/
+
 
 public class Test3 {
     public static void main(String[] args) {
@@ -29,9 +35,18 @@ public class Test3 {
     
     static void testStuff() {
         PQManager mgr=new PQManager();
-        for (int i=0;i<16;i++) {
-            mgr.insert(new SubTest3(i));
+        SubTest3[] a=new SubTest3[16];
+        int i;
+        for (i=0;i<16;i++) {
+            a[i]=new SubTest3(i);
+            mgr.insert(a[i]);
             System.out.println("Inserted "+i);
+            mgr.printtree();
+        }
+        System.out.println("Changing Priorities");
+        for (i=0;i<16;i+=3) {
+            a[i].value-=100;
+            mgr.changePriority(a[i]);
             mgr.printtree();
         }
         System.out.println("Extracting");

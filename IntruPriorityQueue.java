@@ -59,8 +59,14 @@ public abstract class IntruPriorityQueue<T> {
             return top;
         }
         replace(top, right);
-        siftdown(right);
+        siftDown(right);
         return top;
+    }
+    
+    public void changePriority(T e) {
+        T p=getParentLink(e);
+        if (p!=null && compare(e,p)<0) siftUp(e);
+        else siftDown(e);
     }
     
     T removeRightmost() {
@@ -103,7 +109,14 @@ public abstract class IntruPriorityQueue<T> {
         return root;
     }
     
-    private void siftdown(T q) {
+    private void siftUp(T q) {
+        T p;
+        while ((p=getParentLink(q))!=null && compare(q,p)<0) {
+            swapWithParent(q,p);
+        }
+    }
+    
+    private void siftDown(T q) {
         T l,r;
         while (true) {
             l=getLeftLink(q);
@@ -162,6 +175,8 @@ public abstract class IntruPriorityQueue<T> {
         System.out.print(lr+q);
         if (parent!=getParentLink(q))
             System.out.print(" BAD PARENT");
+        if (parent!=null && compare(q,parent)<0)
+            System.out.print(" BAD ORDER");
         System.out.println();
         printtree("\\",getRightLink(q),indent+2,q);
     }
