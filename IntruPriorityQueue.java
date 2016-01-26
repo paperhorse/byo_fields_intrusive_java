@@ -30,6 +30,8 @@ public abstract class IntruPriorityQueue<T> {
                 setParentLink(e,p);
                 if (p==null) root=e;
                 else setRightLink(p,e);
+                if (l!=null) setParentLink(l,e);
+                if (r!=null) setParentLink(r,e);
                 tmp=q;q=e;e=tmp;
             }
             //swapping left/right
@@ -58,9 +60,10 @@ public abstract class IntruPriorityQueue<T> {
         }
         replace(top, right);
         siftdown(right);
+        return top;
     }
     
-    T removeRightMost() {
+    T removeRightmost() {
         T q,l,r,p;
         if (root==null) return null;
         q=root;
@@ -98,6 +101,10 @@ public abstract class IntruPriorityQueue<T> {
     
     public T peekTop() {
         return root;
+    }
+    
+    private void siftdown(T q) {
+        //TODO
     }
     
     //copied from IntruTreeMap
