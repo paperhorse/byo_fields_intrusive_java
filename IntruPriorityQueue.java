@@ -4,7 +4,7 @@
  
 */
 
-public abstract class IntruPriorityQueue<T extends Comparable<T> > {
+public abstract class IntruPriorityQueue<T> {
 
     public abstract T getParentLink(T e);
     public abstract void setParentLink(T e,T parent);
@@ -12,6 +12,7 @@ public abstract class IntruPriorityQueue<T extends Comparable<T> > {
     public abstract void setLeftLink(T e,T left);
     public abstract T getRightLink(T e);
     public abstract void setRightLink(T e,T right);
+    public abstract int compare(T o1, T o2);
 
     T root;
     int count;
@@ -24,7 +25,7 @@ public abstract class IntruPriorityQueue<T extends Comparable<T> > {
         while (q!=null) {
             l=getLeftLink(q);
             r=getRightLink(q);
-            if (q.compareTo(e)<0) {
+            if (compare(q,e)<0) {
                 //replacing q with e
                 setParentLink(e,p);
                 if (p==null) root=e;

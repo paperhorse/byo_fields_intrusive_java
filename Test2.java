@@ -15,14 +15,14 @@ public class Test2 {
         hardtest();
     }
 
-    static class SubTest2 implements Comparable<SubTest2> {
+    static class SubTest2 /* implements Comparable<SubTest2> */ {
         SubTest2 link1, link2, link3;
         String name;
         
         public SubTest2(String nm) {name=nm;}
-        public int compareTo(SubTest2 o) {
+        /*public int compareTo(SubTest2 o) {
             return name.compareTo(o.name);
-        }
+        }*/
         public String toString() {return name;}
     }
 
@@ -35,6 +35,7 @@ public class Test2 {
             public  void setLeftLink(SubTest2 e,SubTest2 left) {e.link2=left;}
             public  SubTest2 getRightLink(SubTest2 e) {return e.link3;}
             public  void setRightLink(SubTest2 e,SubTest2 right) {e.link3=right;}
+            public int compare(SubTest2 o1, SubTest2 o2) {return o1.name.compareTo(o2.name);}
         };
         hd.insert(new SubTest2("Roj Blake"));
         hd.insert(new SubTest2("Vila Restal"));
@@ -54,12 +55,22 @@ public class Test2 {
             public  void setLeftLink(SubTest2 e,SubTest2 left) {e.link2=left;}
             public  SubTest2 getRightLink(SubTest2 e) {return e.link3;}
             public  void setRightLink(SubTest2 e,SubTest2 right) {e.link3=right;}
+            public int compare(SubTest2 o1, SubTest2 o2) {return o1.name.compareTo(o2.name);}
         };
         for (int i=0;i<15;i++) {
             System.out.println("INSERT "+i);
             hd.insert(new SubTest2("".format("%02d",i)));
             hd.printtree();
         }
+        SubTest2 q;
+        System.out.println("\nIteration Test");
+        for (q=hd.iterateStart();q!=null;q=hd.iterateNext(q))
+            System.out.print(" "+q);
+        System.out.println();
+        System.out.println("\nReverse Iteration Test");
+        for (q=hd.iterateEnd();q!=null;q=hd.iteratePrevious(q))
+            System.out.print(" "+q);
+        System.out.println();
     
     }
     

@@ -9,7 +9,7 @@ Scapegoat tree based intrusive TreeMap
 */
 
 
-public abstract class IntruTreeMap<T extends Comparable<T> > {
+public abstract class IntruTreeMap<T> {
 
     public abstract T getParentLink(T e);
     public abstract void setParentLink(T e,T parent);
@@ -17,7 +17,8 @@ public abstract class IntruTreeMap<T extends Comparable<T> > {
     public abstract void setLeftLink(T e,T left);
     public abstract T getRightLink(T e);
     public abstract void setRightLink(T e,T right);
-    
+    public abstract int compare(T o1, T o2);
+
     long count;
     double alpha=0.6;
     T root;
@@ -26,7 +27,7 @@ public abstract class IntruTreeMap<T extends Comparable<T> > {
         int c;
         T q=root;
         while (q!=null) {
-            c=q.compareTo(key);
+            c=compare(q,key);
             if (c==0) return q;
             if (c>0) q=getLeftLink(q);
             else q=getRightLink(q);
@@ -41,7 +42,7 @@ public abstract class IntruTreeMap<T extends Comparable<T> > {
         setLeftLink(e,null);
         setRightLink(e,null);
         while (q!=null) {
-            c=q.compareTo(e);
+            c=compare(q,e);
             //if (c==0) return q;
             p=q;
             if (c>0) q=getLeftLink(q);
@@ -154,6 +155,10 @@ public abstract class IntruTreeMap<T extends Comparable<T> > {
     
     public T iterateStart() {
         return leftmost(root);
+    }
+    
+    public T iterateEnd() {
+        return rightmost(root);
     }
     
     public T iterateNext(T e) {
