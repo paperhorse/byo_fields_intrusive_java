@@ -34,5 +34,12 @@ public class Test3 {
             System.out.println("Inserted "+i);
             mgr.printtree();
         }
+        System.out.println("Extracting");
+        while (true) {
+            SubTest3 x=mgr.extractTop();
+            if (x==null) break;
+            System.out.println("extracted "+x);
+            mgr.printtree();
+        }
     }
 }

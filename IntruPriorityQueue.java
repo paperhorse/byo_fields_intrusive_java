@@ -25,7 +25,7 @@ public abstract class IntruPriorityQueue<T> {
         while (q!=null) {
             l=getLeftLink(q);
             r=getRightLink(q);
-            if (compare(q,e)<0) {
+            if (compare(e,q)<0) {
                 //replacing q with e
                 setParentLink(e,p);
                 if (p==null) root=e;
@@ -104,7 +104,47 @@ public abstract class IntruPriorityQueue<T> {
     }
     
     private void siftdown(T q) {
-        //TODO
+        T l,r;
+        while (true) {
+            l=getLeftLink(q);
+            r=getRightLink(q);
+            if (r==null) break;
+            if (l!=null && compare(l,q)<0 && compare(l,r)<0) {
+                //swap l and q
+                swapWithParent(l,q);
+            } else if (compare(r,q)<0) {
+                //swap r and q
+                swapWithParent(r,q);
+            } else break;
+        }
+    }
+    
+    private void swapWithParent(T q, T p) {
+        T l,r;
+        T gp,brother;
+        gp=getParentLink(p);
+        l=getLeftLink(q);
+        r=getRightLink(q);
+        if (getLeftLink(p)==q) {
+            brother=getRightLink(p);
+            setRightLink(q,brother);
+            setLeftLink(q,p);
+        } else {
+            brother=getLeftLink(p);
+            setLeftLink(q,brother);
+            setRightLink(q,p);
+        }
+        if (gp==null) root=q;
+        else if (getLeftLink(gp)==p) setLeftLink(gp,q);
+        else setRightLink(gp,q);
+        setParentLink(q,gp);
+        
+        if (brother!=null) setParentLink(brother,q);
+        setParentLink(p,q);
+        setLeftLink(p,l);
+        setRightLink(p,r);
+        if (l!=null) setParentLink(l,p);
+        if (r!=null) setParentLink(r,p);
     }
     
     //copied from IntruTreeMap
