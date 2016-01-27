@@ -32,10 +32,14 @@ public class Test1 {
             public  void setPreviousLink(SubTest e,SubTest previous) 
                             {e.previous=previous;}
         };
+        SubTest d;
         hd.push(new SubTest("Olivia Dunham"));
         hd.push(new SubTest("Astrid Farnsworth"));
-        hd.push(new SubTest("Peter Bishop"));
+        hd.push((d=new SubTest("Peter Bishop")));
         hd.push(new SubTest("Walter Bishop"));
+        hd.push(new SubTest("Broils"));
+        hd.push(new SubTest("Nina Sharpe"));
+        /*
         hd.sort(new Comparator<SubTest>() {
             public int compare(SubTest o1,SubTest o2) {
                 return o1.customer.compareTo(o2.customer);
@@ -43,9 +47,13 @@ public class Test1 {
             public boolean equals(SubTest o1, SubTest o2) {
                 return o1.customer.equals(o2.customer);
             }
-        });
+        });*/
         SubTest s;
+        hd.printList();
+        hd.delete(d);
+        hd.printList();
         while ((s=(SubTest)hd.pop())!=null) System.out.println(s);
+        hd.printList();
     }
     
 }

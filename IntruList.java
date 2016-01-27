@@ -64,6 +64,17 @@ public abstract class IntruList<T> {
         count++;
     }
     
+    public void delete(T e) {
+        T p,n;
+        count--;
+        p=getPreviousLink(e);
+        n=getNextLink(e);
+        if (p!=null) setNextLink(p,n);
+        else head=n;
+        if (n!=null) setPreviousLink(n,p);
+        else tail=p;
+    }
+    
     public long length() {return count;}
     
     private T doubleLink(T q) {
@@ -127,6 +138,27 @@ public abstract class IntruList<T> {
     
     public T iterateStart() {
         return head;
+    }
+    
+    public void printList() {
+        T q,p;
+        int c=0;
+        p=null;
+        q=head;
+        String comma="";
+        while (q!=null) {
+            System.out.print(comma+q);
+            comma=",";
+            if (p!=getPreviousLink(q))
+                System.out.print("(PrevBad)");
+            p=q;
+            q=getNextLink(q);
+            c++;
+        }
+        if (c!=count) {
+            System.out.print(" Bad count="+count+" should be "+c);
+        }
+        System.out.println();
     }
     
 }
