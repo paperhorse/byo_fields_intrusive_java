@@ -20,6 +20,7 @@ public abstract class IntruTreeMap<T> {
     public abstract int compare(T o1, T o2);
 
     long count;
+    long maxcount;
     double alpha=0.6;
     T root;
     
@@ -50,6 +51,7 @@ public abstract class IntruTreeMap<T> {
             n=n*alpha;
         }
         count++;
+        if (count>maxcount) maxcount=count;
         setParentLink(e,p);
         if (p==null) {
             root=e;
@@ -185,6 +187,45 @@ public abstract class IntruTreeMap<T> {
         }
     }
     
+    public void delete(T e) {
+        T l,r,p,d,q;
+        d=e;
+        if (getLeftLink(d)!=null) {
+            q=getLeftLink(d);
+            while (q!=null) {
+                d=q;
+                q=getRightLink(q);
+            }            
+        }
+        p=getParentLink(d);
+        r=getRightLink(d);
+        if (p==null) root=r;
+        else if (getLeftLink(p)==d) setLeftLink(p,r);
+        else setRightLink(p,r);
+        if (r!=null) setParentLink(r,p);
+        if (d!=e) {
+            //replace w with d
+            p=getParentLink(e);
+            l=getLeftLink(e);
+            r=getRightLink(e);
+            setParentLink(d,p);
+            setLeftLink(d,l);
+            setRightLink(d,r);
+            if (l!=null) setParentLink(l,d);
+            if (r!=null) setParentLink(r,d);
+            if (p==null) root=d;
+            else if (getLeftLink(p)==e) setLeftLink(p,d);
+            else setRightLink(p,e);
+        }
+        count--;
+        if (1.0*count<alpha*maxcount) {
+            if (count>0) {
+                root=rebalance(root,count);
+                setParentLink(root,null);
+            }
+            maxcount=count;
+        }
+    }
     
     public void printtree() {
         System.out.println("** "+count+" *********");

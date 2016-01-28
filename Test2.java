@@ -48,6 +48,7 @@ public class Test2 {
     }
     
     static void hardtest() {
+        int i;
         IntruTreeMap<SubTest2> hd=new IntruTreeMap<SubTest2>() {
             public  SubTest2 getParentLink(SubTest2 e) {return e.link1;}
             public  void setParentLink(SubTest2 e,SubTest2 parent) {e.link1=parent;}
@@ -57,11 +58,13 @@ public class Test2 {
             public  void setRightLink(SubTest2 e,SubTest2 right) {e.link3=right;}
             public int compare(SubTest2 o1, SubTest2 o2) {return o1.name.compareTo(o2.name);}
         };
-        for (int i=0;i<15;i++) {
+        SubTest2[] a=new SubTest2[16];
+        for (i=0;i<16;i++) {
             System.out.println("INSERT "+i);
-            hd.insert(new SubTest2("".format("%02d",i)));
+            hd.insert(a[i]=new SubTest2("".format("%02d",i)));
             hd.printtree();
         }
+        
         SubTest2 q;
         System.out.println("\nIteration Test");
         for (q=hd.iterateStart();q!=null;q=hd.iterateNext(q))
@@ -70,6 +73,12 @@ public class Test2 {
         System.out.println("\nReverse Iteration Test");
         for (q=hd.iterateEnd();q!=null;q=hd.iteratePrevious(q))
             System.out.print(" "+q);
+        System.out.println();
+        for (i=0;i<16;i++) {
+            System.out.println("Delete "+i);
+            hd.delete(a[i]);
+            hd.printtree();
+        }
         System.out.println();
     
     }
