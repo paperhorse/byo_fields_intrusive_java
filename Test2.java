@@ -74,9 +74,11 @@ public class Test2 {
         for (q=hd.iterateEnd();q!=null;q=hd.iteratePrevious(q))
             System.out.print(" "+q);
         System.out.println();
+        int x=0;
         for (i=0;i<16;i++) {
-            System.out.println("Delete "+i);
-            hd.delete(a[i]);
+            x=(5*x+3) & 15;
+            System.out.println("Delete "+x);
+            hd.delete(a[x]);
             hd.printtree();
         }
         System.out.println();

@@ -189,33 +189,49 @@ public abstract class IntruTreeMap<T> {
     
     public void delete(T e) {
         T l,r,p,d,q;
+        boolean dbg=false;
+        if ((""+e).equals("13")) dbg=true;
         d=e;
-        if (getLeftLink(d)!=null) {
-            q=getLeftLink(d);
-            while (q!=null) {
-                d=q;
-                q=getRightLink(q);
-            }            
-        }
-        p=getParentLink(d);
-        r=getRightLink(d);
-        if (p==null) root=r;
-        else if (getLeftLink(p)==d) setLeftLink(p,r);
-        else setRightLink(p,r);
-        if (r!=null) setParentLink(r,p);
-        if (d!=e) {
-            //replace w with d
-            p=getParentLink(e);
-            l=getLeftLink(e);
-            r=getRightLink(e);
-            setParentLink(d,p);
-            setLeftLink(d,l);
-            setRightLink(d,r);
-            if (l!=null) setParentLink(l,d);
-            if (r!=null) setParentLink(r,d);
-            if (p==null) root=d;
-            else if (getLeftLink(p)==e) setLeftLink(p,d);
-            else setRightLink(p,e);
+        if (getLeftLink(d)==null) {
+            if (dbg) System.out.println("left null - graftup right");
+            r=getRightLink(d);
+            p=getParentLink(d);
+            if (r!=null) setParentLink(r,p);
+            if (p==null) root=r;
+            else if (getLeftLink(p)==d) setLeftLink(p,r);
+            else setRightLink(p,r);
+        } else { 
+            if (dbg) System.out.println("left not null - descend right then left");            
+            if (getRightLink(d)!=null) {
+                q=getLeftLink(d);
+                while (q!=null) {
+                    d=q;
+                    q=getRightLink(q);
+                }            
+            }
+            p=getParentLink(d);
+            l=getLeftLink(d);
+            if (dbg) System.out.println("found delete node="+d+" par="+p+"left="+l);
+        
+            if (p==null) root=l;
+            else if (getLeftLink(p)==d) setLeftLink(p,l);
+            else setRightLink(p,l);
+            if (l!=null) setParentLink(l,p);
+            if (d!=e) {
+                //replace w with d
+                if (dbg) System.out.println("replacing internal node");
+                p=getParentLink(e);
+                l=getLeftLink(e);
+                r=getRightLink(e);
+                setParentLink(d,p);
+                setLeftLink(d,l);
+                setRightLink(d,r);
+                if (l!=null) setParentLink(l,d);
+                if (r!=null) setParentLink(r,d);
+                if (p==null) root=d;
+                else if (getLeftLink(p)==e) setLeftLink(p,d);
+                else setRightLink(p,d);
+            }
         }
         count--;
         if (1.0*count<alpha*maxcount) {
