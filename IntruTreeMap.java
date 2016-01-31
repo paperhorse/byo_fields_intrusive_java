@@ -59,11 +59,13 @@ public abstract class IntruTreeMap<T> {
         }
         if (c>0) setLeftLink(p,e);
         else setRightLink(p,e);
+        System.out.printf("insert n=%.2f\n",n);
         if (n<1.0) {
             T r;
             long[] cc=new long[1];
             cc[0]=1;
             r=findRebalance(e,cc);
+            System.out.println("rebalance="+r);
             if (r==null) return;
             p=getParentLink(r);
             boolean isLeft=false;
@@ -243,8 +245,49 @@ public abstract class IntruTreeMap<T> {
         }
     }
     
+    private int CalcTheoryMaxHt() {
+        double c;
+        int h;
+        c=count;
+        h=0;
+        while (c>=1.0) {
+            c*=alpha;
+            h++;
+        }
+        return h-1;
+    }
+    private int CalcTheoryMinHt() {
+        double c;
+        int h;
+        c=count;
+        h=0;
+        while (c>1.0) {
+            c=c-1.0-c*alpha;
+            h++;
+        }
+        return h-1;
+    }
+    private int calcMaxHt(T q) {
+        if (q==null) return 0;
+        return 1+Math.max(calcMaxHt(getLeftLink(q)),
+                        calcMaxHt(getRightLink(q)));
+    }
+
+    private int calcMinHt(T q) {
+        if (q==null) return 0;
+        return 1+Math.min(calcMaxHt(getLeftLink(q)),
+                        calcMaxHt(getRightLink(q)));
+    }
+    
     public void printtree() {
+        int maxht, minht, theory_maxht, theory_minht;
         System.out.println("** "+count+" *********");
+        maxht=calcMaxHt(root);
+        minht=calcMinHt(root);
+        theory_maxht=CalcTheoryMaxHt();
+        theory_minht=CalcTheoryMinHt();
+        System.out.printf("Max Ht %d/%d  Min Ht %d/%d\n",
+            maxht, theory_maxht, minht, theory_minht);
         printtree("",root,0,null);
         System.out.println("***************");
         System.out.println();

@@ -8,6 +8,7 @@
 
 public class Test2 {
     
+    static final int N=100;
     
     public static void main(String[] args) {
         //System.out.printf("%02d\n",5);
@@ -58,12 +59,13 @@ public class Test2 {
             public  void setRightLink(SubTest2 e,SubTest2 right) {e.link3=right;}
             public int compare(SubTest2 o1, SubTest2 o2) {return o1.name.compareTo(o2.name);}
         };
-        SubTest2[] a=new SubTest2[16];
-        for (i=0;i<16;i++) {
+        SubTest2[] a=new SubTest2[N];
+        for (i=0;i<N;i++) {
             System.out.println("INSERT "+i);
             hd.insert(a[i]=new SubTest2("".format("%02d",i)));
             hd.printtree();
         }
+        
         
         SubTest2 q;
         System.out.println("\nIteration Test");
@@ -75,14 +77,16 @@ public class Test2 {
             System.out.print(" "+q);
         System.out.println();
         int x=0;
-        for (i=0;i<16;i++) {
-            x=(5*x+3) & 15;
+        for (i=0;i<N;i++) {
+            do {
+                x=(0x95*x+0x71) & 255;
+            } while (x>=N);
             System.out.println("Delete "+x);
             hd.delete(a[x]);
             hd.printtree();
         }
         System.out.println();
-    
+        
     }
     
     
