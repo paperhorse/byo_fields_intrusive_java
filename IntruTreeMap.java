@@ -249,7 +249,7 @@ public abstract class IntruTreeMap<T> {
         double c;
         int h;
         c=count;
-        h=0;
+        h=1;
         while (c>=1.0) {
             c*=alpha;
             h++;
@@ -260,7 +260,7 @@ public abstract class IntruTreeMap<T> {
         double c;
         int h;
         c=count;
-        h=0;
+        h=1;
         while (c>1.0) {
             c=c-1.0-c*alpha;
             h++;
