@@ -18,7 +18,8 @@ public abstract class IntruList<T> {
     public abstract T getPreviousLink(T e);
     public abstract void setPreviousLink(T e,T previous);
     
-    public void push(T e) {
+    //was push
+    public void prepend(T e) {
         setNextLink(e,head);
         if (head!=null) setPreviousLink(head,e);
         else tail=e;
@@ -27,7 +28,8 @@ public abstract class IntruList<T> {
         count++;
     }
     
-    public T pop() {
+    //was pop
+    public T extractFirst() {
         T e;
         e=head;
         if (e!=null) {
@@ -62,6 +64,21 @@ public abstract class IntruList<T> {
         if (tail==null) head=e;
         tail=e;
         count++;
+    }
+    
+    public T extractLast() {
+        T p,q;
+        if (tail==null) return null;
+        count--;
+        q=tail;
+        p=getPreviousLink(q);
+        if (p!=null) {
+            setNextLink(p, null);
+            tail=p;
+        } else {
+            tail=head=null;
+        }
+        return q;
     }
     
     public void delete(T e) {

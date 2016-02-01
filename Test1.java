@@ -33,12 +33,12 @@ public class Test1 {
                             {e.previous=previous;}
         };
         SubTest d;
-        hd.push(new SubTest("Olivia Dunham"));
-        hd.push(new SubTest("Astrid Farnsworth"));
-        hd.push((d=new SubTest("Peter Bishop")));
-        hd.push(new SubTest("Walter Bishop"));
-        hd.push(new SubTest("Broils"));
-        hd.push(new SubTest("Nina Sharpe"));
+        hd.prepend(new SubTest("Olivia Dunham"));
+        hd.prepend(new SubTest("Astrid Farnsworth"));
+        hd.prepend((d=new SubTest("Peter Bishop")));
+        hd.prepend(new SubTest("Walter Bishop"));
+        hd.prepend(new SubTest("Broils"));
+        hd.prepend(new SubTest("Nina Sharpe"));
         /*
         hd.sort(new Comparator<SubTest>() {
             public int compare(SubTest o1,SubTest o2) {
@@ -52,7 +52,7 @@ public class Test1 {
         hd.printList();
         hd.delete(d);
         hd.printList();
-        while ((s=(SubTest)hd.pop())!=null) System.out.println(s);
+        while ((s=(SubTest)hd.extractFirst())!=null) System.out.println(s);
         hd.printList();
     }
     
