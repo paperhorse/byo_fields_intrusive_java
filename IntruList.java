@@ -156,6 +156,11 @@ public abstract class IntruList<T> {
     public T iterateStart() {
         return head;
     }
+
+    public T iterateLast() {
+        return tail;
+    }
+
     
     public void printList() {
         T q,p;
