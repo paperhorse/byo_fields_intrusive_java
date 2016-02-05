@@ -43,18 +43,16 @@ public class Test6 {
         hd.insert(new SubTest6("CC Zen"));
         hd.insert(new SubTest6("BB Cally"));
         hd.insert(new SubTest6("AA Soolin"));
-        /*hd.insert(new SubTest6("Roj Blake"));
-        hd.insert(new SubTest6("FF Cally"));
-        hd.insert(new SubTest6("Vila Restal"));
-        hd.insert(new SubTest6("Servalan"));*/
         hd.printTree();
-        /*
+        
+        
+        System.out.println("iteration test");
         SubTest6 q=hd.iterateStart();
         while (q!=null) {
             System.out.println(q);
             q=hd.iterateNext(q);
         }
-        */
+        
     }
     
     /*

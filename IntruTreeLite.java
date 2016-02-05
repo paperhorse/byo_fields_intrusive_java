@@ -37,7 +37,7 @@ public abstract class IntruTreeLite<T> {
     }
     
     public void insert(T e) {
-        System.out.println("INSERT "+e);
+        //System.out.println("INSERT "+e);
         long oldcount=++count;
         setLeftLink(e, null);
         setRightLink(e, null);
@@ -46,6 +46,7 @@ public abstract class IntruTreeLite<T> {
         count=oldcount;
     }
 
+    /*
     T insert(T q, T e, double alphacount) {
         T r=insertX(q,e,alphacount);
         System.out.println("insert returns");
@@ -53,8 +54,9 @@ public abstract class IntruTreeLite<T> {
         System.out.println();
         return r;
     }
+    */
     
-    public T insertX(T q, T e, double alphacount) {
+    public T insert(T q, T e, double alphacount) {
         int c; 
         long otherCount=0;
         T ch;
@@ -121,6 +123,33 @@ public abstract class IntruTreeLite<T> {
         setLeftLink(q,l);
         setRightLink(q,r);
         return q;
+    }
+    
+    public T iterateStart() {
+        return leftmost(root);
+    }
+    
+    public T iterateNext(T e) {
+        T q,n=null;
+        int c;
+        if ((q=getRightLink(e))!=null)
+            return leftmost(q);
+        q=root;
+        while (q!=e) {
+            c=compare(q,e);
+            if (c>0) {n=q;q=getLeftLink(q);}
+            else q=getRightLink(q);
+        }
+        return n;
+    }
+    
+    T leftmost(T q) {
+        T p=null;
+        while (q!=null) {
+            p=q;
+            q=getLeftLink(q);
+        }
+        return p;
     }
     
     void printTree() {
