@@ -17,6 +17,11 @@ public abstract class IntruPriorityQueue<T> {
     T root;
     int count;
     
+    public void clear() {
+        root=null;
+        count=0;
+    }
+    
     public void insert(T e) {
         T p,q, tmp;
         T l,r;

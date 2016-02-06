@@ -21,8 +21,13 @@ public abstract class IntruTreeMap<T> {
 
     long count;
     long maxcount;
-    double alpha=0.6;
+    double alpha=0.6; //should be between 0.51 (balanced) and 0.99
     T root;
+    
+    public void clear() {
+        root=null;
+        count=maxcount=0;
+    }
     
     public T find(T key) {
         int c;

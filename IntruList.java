@@ -17,6 +17,11 @@ public abstract class IntruList<T> {
     public abstract void setNextLink(T e,T next);
     public abstract T getPreviousLink(T e);
     public abstract void setPreviousLink(T e,T previous);
+
+    public void clear() {
+        head=tail=null;
+        count=0;
+    }
     
     //was push
     public void prepend(T e) {

@@ -19,10 +19,15 @@ public abstract class IntruTreeLite<T> {
 
     long count;
     long maxcount;
-    double alpha=0.6;
+    double alpha=0.6; //should be between 0.51 (balanced) and 0.99
     T root;
     
-    final boolean FALSE=false;
+    //final boolean FALSE=false;
+    
+    public void clear() {
+        root=null;
+        count=maxcount=0;
+    }
     
     public T find(T key) {
         int c;
@@ -44,6 +49,7 @@ public abstract class IntruTreeLite<T> {
         count=0; //count now used as subtree count when search for scapegoat tree
         root=insert(root,e,1.0*oldcount);
         count=oldcount;
+        if (count>maxcount) maxcount=count;
     }
 
     /*
@@ -182,8 +188,10 @@ public abstract class IntruTreeLite<T> {
     public void delete(T e) {
         deleteNode(e);
         count--;
-        if (1.0*count<alpha*maxcount && count>1)
+        if (1.0*count<alpha*maxcount && count>1) {
             root=rebalance(root,count);
+            maxcount=count;
+        }
     }
     
     void deleteNode(T e) {

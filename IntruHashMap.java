@@ -24,10 +24,14 @@ public abstract class IntruHashMap<T> {
     final int maxload=10;
     
     public IntruHashMap() {
+        clear();
+    }
+    
+    public void clear() {
         count=0;
         primeIndex=0;
         hashTable=new Object[primes[primeIndex]];
-    }
+    } 
     
     private void enlargeTable() {
         int i;

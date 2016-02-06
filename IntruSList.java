@@ -17,6 +17,11 @@ public abstract class IntruSList<T> {
     public abstract T getNextLink(T e);
     public abstract void setNextLink(T e,T next);
 
+    public void clear() {
+        head=tail=null;
+        count=0;
+    }
+    
     public void prepend(T e) {
         count++;
         setNextLink(e,head);
