@@ -143,11 +143,38 @@ public abstract class IntruTreeLite<T> {
         return n;
     }
     
+    public T iterateLast() {
+        return rightmost(root);
+    }
+    
+    public T iteratePrevious(T e) {
+        T q,n=null;
+        int c;
+        if ((q=getLeftLink(e))!=null)
+            return rightmost(q);
+        q=root;
+        while (q!=e) {
+            c=compare(q,e);
+            if (c>0) q=getLeftLink(q);
+            else {n=q;q=getRightLink(q);}
+        }
+        return n;
+    }
+    
     T leftmost(T q) {
         T p=null;
         while (q!=null) {
             p=q;
             q=getLeftLink(q);
+        }
+        return p;
+    }
+    
+    T rightmost(T q) {
+        T p=null;
+        while (q!=null) {
+            p=q;
+            q=getRightLink(q);
         }
         return p;
     }

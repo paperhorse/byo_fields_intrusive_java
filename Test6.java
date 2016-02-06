@@ -53,6 +53,12 @@ public class Test6 {
             q=hd.iterateNext(q);
         }
         
+        System.out.println("reverse iteration test");
+        q=hd.iterateLast();
+        while (q!=null) {
+            System.out.println(q);
+            q=hd.iteratePrevious(q);
+        }
     }
     
     /*
