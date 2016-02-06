@@ -179,6 +179,58 @@ public abstract class IntruTreeLite<T> {
         return p;
     }
     
+    public void delete(T e) {
+        deleteNode(e);
+        count--;
+        if (1.0*count<alpha*maxcount && count>1)
+            root=rebalance(root,count);
+    }
+    
+    void deleteNode(T e) {
+        T q,p=null;
+        T lp=null;
+        int c=0;
+        q=root;
+        while (q!=e) {
+            c=compare(q,e);
+            p=q;
+            if (c>0) q=getLeftLink(q);
+            else q=getRightLink(q);
+        }
+        if (getLeftLink(e)==null) {
+            q=getRightLink(e);
+            if (p==null) root=q;
+            else if (c>0) setLeftLink(p,q);
+            else setRightLink(p,q);
+            return;
+        }
+        if (getRightLink(e)==null) {
+            q=getLeftLink(e);
+            if (p==null) root=q;
+            else if (c>0) setLeftLink(p,q);
+            else setRightLink(p,q);
+            return;
+        }
+        //internal node
+        //delete predecessor
+        lp=e;
+        q=getLeftLink(e);
+        while (getRightLink(q)!=null) {
+            lp=q;
+            q=getRightLink(q);
+        }
+        if (lp==e) setLeftLink(lp,getLeftLink(q));
+        else setRightLink(lp,getLeftLink(q));
+        //and replace it (q) over internal node (e)
+        setLeftLink(q,getLeftLink(e));
+        setRightLink(q,getRightLink(e));
+        
+        if (p==null) root=q;
+        else if (c>0) setLeftLink(p,q);
+        else setRightLink(p,q);
+        
+    }
+    
     void printTree() {
         printTree(root,0);
     }
