@@ -7,6 +7,8 @@
      because of hashtable array)
  
 */
+package com.countersort.paperhorse.intrusivejava;
+
 
 public abstract class IntruHashMap<T> {
     

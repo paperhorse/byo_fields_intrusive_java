@@ -1,8 +1,11 @@
 /*
  (C) Paperhorse 2016
  MIT Licenced
- 
+
+ Intrusive Priority Queue 
 */
+
+package com.countersort.intru;
 
 public abstract class IntruPriorityQueue<T> {
 

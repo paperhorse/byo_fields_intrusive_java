@@ -8,6 +8,8 @@ Scapegoat tree based intrusive TreeMap
  
 */
 
+package com.countersort.intru;
+
 
 public abstract class IntruTreeMap<T> {
 
