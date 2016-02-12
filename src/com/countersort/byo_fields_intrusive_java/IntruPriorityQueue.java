@@ -5,7 +5,7 @@
  Intrusive Priority Queue 
 */
 
-package com.countersort.intru;
+package com.countersort.byo_fields_intrusive_java;
 
 public abstract class IntruPriorityQueue<T> {
 

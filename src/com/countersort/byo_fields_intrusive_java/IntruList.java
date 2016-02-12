@@ -5,7 +5,7 @@
  Intrusive Double Linked List
  
 */
-package com.countersort.intru;
+package com.countersort.byo_fields_intrusive_java;
 
 
 import java.util.Comparator;

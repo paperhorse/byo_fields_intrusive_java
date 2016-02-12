@@ -9,7 +9,7 @@ Lightweight doesn't have parent links
  
 */
 
-package com.countersort.intru;
+package com.countersort.byo_fields_intrusive_java;
 
 
 public abstract class IntruTreeLite<T> {
