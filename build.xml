@@ -1,0 +1,31 @@
+<project name="byo_fields_intrusive_java" default="dist" basedir="." >
+    <description>
+        Collections library of intrusive data structures
+    </description>
+    <!-- global props -->
+    <property name="src" location="src" />
+    <property name="build" location="target/classes" />
+    <property name="dist" location="target" />
+    
+    <target name="init" >
+        <tstamp/>
+        <mkdir dir="${build}" />
+    </target>
+    
+    <target name="compile" depends="init" >
+        <javac srcdir="${src}" destdir="${build}" />
+    </target>
+    
+    <target name="dist" depends="compile" >
+        <mkdir dir="${dist}/lib" />
+        <jar jarfile="${dist}/lib/byo_fields_intrusive_java-${DSTAMP}.jar"
+                basedir="${build}" />
+    </target>
+    
+    <target name="clean" >
+        <delete dir="${build}" />
+        <delete dir="${dist}" />
+    </target>
+</project>
+
+
