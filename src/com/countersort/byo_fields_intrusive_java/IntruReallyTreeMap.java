@@ -5,13 +5,16 @@
  MIT Licenced
 
 Scapegoat tree based intrusive TreeMap
+But this one's REALLY a map
+except that it returns and finds the big node with key and value
+but you look it up with just the key.
  
 */
 
 package com.countersort.byo_fields_intrusive_java;
 
 
-public abstract class IntruTreeMap<T> {
+public abstract class IntruReallyTreeMap<K extends Comparable<K>,T> {
 
     public abstract T getParentLink(T e);
     public abstract void setParentLink(T e,T parent);
@@ -19,7 +22,7 @@ public abstract class IntruTreeMap<T> {
     public abstract void setLeftLink(T e,T left);
     public abstract T getRightLink(T e);
     public abstract void setRightLink(T e,T right);
-    public abstract int compare(T o1, T o2);
+    public abstract K getKey(T e);
 
     long count;
     long maxcount;
@@ -31,11 +34,11 @@ public abstract class IntruTreeMap<T> {
         count=maxcount=0;
     }
     
-    public T find(T key) {
+    public T find(K key) {
         int c;
         T q=root;
         while (q!=null) {
-            c=compare(q,key);
+            c=getKey(q).compareTo(key);
             if (c==0) return q;
             if (c>0) q=getLeftLink(q);
             else q=getRightLink(q);
@@ -44,13 +47,14 @@ public abstract class IntruTreeMap<T> {
     }
     
     public void insert(T e) {
+        K ke=getKey(e);
         int c=0;
         T q=root,p=null;
         double n=(double) (1+count);
         setLeftLink(e,null);
         setRightLink(e,null);
         while (q!=null) {
-            c=compare(q,e);
+            c=getKey(q).compareTo(ke);
             //if (c==0) return q;
             p=q;
             if (c>0) q=getLeftLink(q);
