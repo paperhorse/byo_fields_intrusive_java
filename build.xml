@@ -18,8 +18,11 @@
     
     <target name="dist" depends="compile" >
         <mkdir dir="${dist}/lib" />
-        <jar jarfile="${dist}/lib/byo_fields_intrusive_java-${DSTAMP}.jar"
-                basedir="${build}" />
+        <jar jarfile="${dist}/lib/byo_fields_intrusive_java-${DSTAMP}.jar" >
+                <!-- basedir="${build}" -->
+                <fileset dir="${build}" />
+                <fileset dir="${src}" includes="**/*.java" />
+        </jar>
     </target>
     
     <target name="clean" >
