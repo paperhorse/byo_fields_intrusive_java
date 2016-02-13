@@ -5,7 +5,7 @@
 */
 
 import java.util.Comparator;
-import com.countersort.intru.IntruList;
+import com.countersort.byo_fields_intrusive_java.*;
 
 public class Test1 {
     

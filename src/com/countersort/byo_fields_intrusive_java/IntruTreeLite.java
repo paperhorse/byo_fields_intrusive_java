@@ -264,7 +264,7 @@ public abstract class IntruTreeLite<T> {
         
     }
     
-    void printTree() {
+    public void printTree() {
         printTree(root,0);
     }
     void printTree(T q) {
