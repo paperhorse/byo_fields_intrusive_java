@@ -77,6 +77,13 @@ public abstract class IntruPriorityQueue<T> {
         else siftDown(e);
     }
     
+    public void delete(T e) {
+        T right=removeRightmost();
+        if (right==null || e==right) return;
+        replace(e,right);
+        changePriority(right);
+    }
+    
     T removeRightmost() {
         T q,l,r,p;
         if (root==null) return null;
