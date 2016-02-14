@@ -50,6 +50,13 @@ public class Test3 {
             mgr.changePriority(a[i]);
             mgr.printtree();
         }
+        System.out.println("Deleting");
+        for (i=0;i<16;i+=2) {
+            a[i].value-=100;
+            mgr.delete(a[i]);
+            mgr.printtree();
+        }
+        
         System.out.println("Extracting");
         while (true) {
             SubTest3 x=mgr.extractTop();
@@ -57,5 +64,6 @@ public class Test3 {
             System.out.println("extracted "+x);
             mgr.printtree();
         }
+        
     }
 }

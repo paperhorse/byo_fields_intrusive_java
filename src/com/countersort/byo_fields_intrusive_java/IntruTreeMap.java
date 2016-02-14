@@ -30,7 +30,7 @@ public abstract class IntruTreeMap<T> {
         root=null;
         count=maxcount=0;
     }
-    
+    /*
     public T find(T key) {
         int c;
         T q=root;
@@ -86,6 +86,69 @@ public abstract class IntruTreeMap<T> {
                 setRightLink(p,q);
         }
     }
+    */
+    
+    private static int INSERT=2;
+    private static int FIND=1; 
+
+    private T findInserter(T e, int findInsert) {
+        int c=0;
+        T q=root,p=null;
+        double n=(double) (1+count);
+        while (q!=null) {
+            c=compare(q,e);
+            if (c==0 && (findInsert & FIND)!=0) return q;
+            p=q;
+            if (c>0) q=getLeftLink(q);
+            else q=getRightLink(q);
+            n=n*alpha;
+        }
+        if ((findInsert & INSERT)==0) return null;
+        setLeftLink(e,null);
+        setRightLink(e,null);
+        count++;
+        if (count>maxcount) maxcount=count;
+        setParentLink(e,p);
+        if (p==null) {
+            root=e;
+            return e;
+        }
+        if (c>0) setLeftLink(p,e);
+        else setRightLink(p,e);
+        //System.out.printf("insert n=%.2f\n",n);
+        if (n<1.0) {
+            T r;
+            long[] cc=new long[1];
+            cc[0]=1;
+            r=findRebalance(e,cc);
+            //System.out.println("rebalance="+r);
+            if (r==null) return e; //shouldnt happen
+            p=getParentLink(r);
+            boolean isLeft=false;
+            if (p!=null && getLeftLink(p)==r) isLeft=true;
+            q=rebalance(r,cc[0]);
+            setParentLink(q,p);
+            if (p==null) root=q;
+            else if (isLeft)
+                setLeftLink(p,q);
+            else
+                setRightLink(p,q);
+        }
+        return e;
+    }
+    
+    public void insert(T e) {
+        T ignore=findInserter(e, INSERT);
+    }
+    
+    public T find(T key) {
+        return findInserter(key, FIND);
+    }
+    
+    public T findOrInsert(T e) {
+        return findInserter(e, FIND+INSERT);
+    }
+
     
     private T findRebalance(T q, long[] cc) {
         long c=cc[0];
