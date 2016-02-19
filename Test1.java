@@ -26,6 +26,28 @@ public class Test1 {
     }
     
     public static void main(String[] args) {
+        //generalTest();
+        itTest();
+    }
+    
+    public static void itTest() {
+        IntruList<SubTest> list=new IntruList<SubTest>() {
+            public  SubTest getNextLink(SubTest e) {return e.next;}
+            public  void setNextLink(SubTest e,SubTest next) {e.next=next;}
+            public  SubTest getPreviousLink(SubTest e) {return e.previous;}
+            public  void setPreviousLink(SubTest e,SubTest previous) 
+                            {e.previous=previous;}
+        };
+        list.append(new SubTest("Alpha"));
+        list.append(new SubTest("Bravo"));
+        list.append(new SubTest("Charlie"));
+        list.append(new SubTest("Delta"));
+        for (SubTest e : list) {
+            System.out.println(e);
+        }
+    }
+    
+    public static void generalTest() {
         IntruList<SubTest> hd=new IntruList<SubTest>() {
             public  SubTest getNextLink(SubTest e) {return e.next;}
             public  void setNextLink(SubTest e,SubTest next) {e.next=next;}

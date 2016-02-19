@@ -9,9 +9,13 @@ package com.countersort.byo_fields_intrusive_java;
 
 
 import java.util.Comparator;
+import java.util.Iterator;
+import com.countersort.byo_fields_intrusive_java.IntrusiveIterator;
+import com.countersort.byo_fields_intrusive_java.CompatibleIterator;
 
 
-public abstract class IntruList<T> {
+public abstract class IntruList<T> implements IntrusiveIterator<T>,
+                                    Iterable<T> {
     T head;
     T tail;
     long count;
@@ -66,10 +70,12 @@ public abstract class IntruList<T> {
     }
     
     public void append(T e) {
-        setPreviousLink(e, tail);
-        setNextLink(tail, e);
-        setNextLink(e, null);
         if (tail==null) head=e;
+        else {
+            setPreviousLink(e, tail);
+            setNextLink(tail, e);
+        }
+        setNextLink(e, null);
         tail=e;
         count++;
     }
@@ -153,20 +159,29 @@ public abstract class IntruList<T> {
         tail=doubleLink(head);
     }
     
+    @Override
     public T iterateNext(T e) {
         return getNextLink(e);
     }
     
+    @Override
     public T iteratePrevious(T e) {
         return getPreviousLink(e);
     }
     
+    @Override
     public T iterateStart() {
         return head;
     }
 
+    @Override
     public T iterateLast() {
         return tail;
+    }
+    
+    @Override
+    public Iterator<T> iterator() {
+        return new CompatibleIterator<T>(this);
     }
 
     
