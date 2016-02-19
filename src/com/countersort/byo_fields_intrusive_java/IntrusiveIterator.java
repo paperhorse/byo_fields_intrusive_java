@@ -1,3 +1,7 @@
+/*
+ (C) Paperhorse 2016
+ MIT Licenced
+*/
 
 package com.countersort.byo_fields_intrusive_java;
 

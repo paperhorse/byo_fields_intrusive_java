@@ -10,8 +10,13 @@ Scapegoat tree based intrusive TreeMap
 
 package com.countersort.byo_fields_intrusive_java;
 
+import java.util.Iterator;
+import com.countersort.byo_fields_intrusive_java.IntrusiveIterator;
+import com.countersort.byo_fields_intrusive_java.CompatibleIterator;
 
-public abstract class IntruTreeMap<T> {
+
+public abstract class IntruTreeMap<T> implements IntrusiveIterator<T>,
+                                    Iterable<T> {
 
     public abstract T getParentLink(T e);
     public abstract void setParentLink(T e,T parent);
@@ -227,14 +232,17 @@ public abstract class IntruTreeMap<T> {
         return q;
     }
     
+    @Override
     public T iterateStart() {
         return leftmost(root);
     }
     
-    public T iterateEnd() {
+    @Override
+    public T iterateLast() {
         return rightmost(root);
     }
     
+    @Override
     public T iterateNext(T e) {
         T r,p;
         r=getRightLink(e);
@@ -247,6 +255,7 @@ public abstract class IntruTreeMap<T> {
         }
     }
 
+    @Override
     public T iteratePrevious(T e) {
         T r,p;
         r=getLeftLink(e);
@@ -257,6 +266,11 @@ public abstract class IntruTreeMap<T> {
             if (getRightLink(p)==e) return p;
             e=p;
         }
+    }
+    
+    @Override
+    public Iterator<T> iterator() {
+        return new CompatibleIterator<T>(this);
     }
     
     public void delete(T e) {

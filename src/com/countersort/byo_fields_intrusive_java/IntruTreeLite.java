@@ -11,8 +11,13 @@ Lightweight doesn't have parent links
 
 package com.countersort.byo_fields_intrusive_java;
 
+import java.util.Iterator;
+import com.countersort.byo_fields_intrusive_java.IntrusiveIterator;
+import com.countersort.byo_fields_intrusive_java.CompatibleIterator;
 
-public abstract class IntruTreeLite<T> {
+
+public abstract class IntruTreeLite<T> implements IntrusiveIterator<T>,
+                                    Iterable<T> {
 
     public abstract T getLeftLink(T e);
     public abstract void setLeftLink(T e,T left);
@@ -156,10 +161,12 @@ public abstract class IntruTreeLite<T> {
         return q;
     }
     
+    @Override
     public T iterateStart() {
         return leftmost(root);
     }
     
+    @Override
     public T iterateNext(T e) {
         T q,n=null;
         int c;
@@ -174,10 +181,12 @@ public abstract class IntruTreeLite<T> {
         return n;
     }
     
+    @Override
     public T iterateLast() {
         return rightmost(root);
     }
     
+    @Override
     public T iteratePrevious(T e) {
         T q,n=null;
         int c;
@@ -191,6 +200,12 @@ public abstract class IntruTreeLite<T> {
         }
         return n;
     }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new CompatibleIterator<T>(this);
+    }
+
     
     T leftmost(T q) {
         T p=null;
