@@ -289,16 +289,34 @@ public abstract class IntruTreeLite<T> implements IntrusiveIterator<T>,
         public void visit(T e);
     }
     
-    private void visitTree(T q, Visitor<T> v) {
+    private void visitTree(T q, Visitor<T> v, T rangeLo, T rangeHi) {
         if (q==null) return;
-        visitTree(getLeftLink(q),v);
-        v.visit(q);
-        visitTree(getRightLink(q),v);
+        int cmpLo;
+        if (rangeLo!=null)
+            cmpLo=compare(rangeLo,q);
+        else
+            cmpLo=-1;
+        int cmpHi;
+        if (rangeHi!=null)
+            cmpHi=compare(q,rangeHi);
+        else
+            cmpHi=-1;
+        if (cmpLo<0)
+            visitTree(getLeftLink(q),v,rangeLo, rangeHi);
+        if (cmpLo<=0 && cmpHi<=0)
+            v.visit(q);
+        if (cmpHi<0)
+            visitTree(getRightLink(q),v, rangeLo, rangeHi);
     }
     
     public void visitAll(Visitor<T> v) {
-        visitTree(root, v);
+        visitTree(root, v, null, null);
     }
+
+    public void visitRange(Visitor<T> v, T rangeLo, T rangeHi) {
+        visitTree(root, v, rangeLo, rangeHi);
+    }
+
     
     public void printTree() {
         printTree(root,0);
