@@ -156,9 +156,9 @@ public abstract class IntruTreeMap<T> implements IntrusiveIterator<T>,
         return findInserter(e, FIND+INSERT);
     }
 
-    static final int LT=1;
-    static final int EQ=2;
-    static final int GT=4;
+    public static final int LT=1;
+    public static final int EQ=2;
+    public static final int GT=4;
     
     public T find_lt_eq_gt(T key, int lt_eq_gt) {
         T gt=null, lt=null, eq=null;
@@ -172,8 +172,18 @@ public abstract class IntruTreeMap<T> implements IntrusiveIterator<T>,
         }
         eq=q;
         if ((lt_eq_gt & EQ)!=0 && eq!=null) return eq;
-        if ((lt_eq_gt & GT)!=0 && gt!=null) return gt;
-        if ((lt_eq_gt & LT)!=0 && lt!=null) return lt;
+        if ((lt_eq_gt & GT)!=0) {
+            T gt2=null;
+            if (eq!=null) gt2=leftmost(getRightLink(eq));
+            if (gt2!=null) gt=gt2;
+            if (gt!=null) return gt;
+        }
+        if ((lt_eq_gt & LT)!=0) {
+            T lt2=null;
+            if (eq!=null) lt2=rightmost(getLeftLink(eq));
+            if (lt2!=null) lt=lt2;
+            if (lt!=null) return lt;
+        }
         return null;
     }
 

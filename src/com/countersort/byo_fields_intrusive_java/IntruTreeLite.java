@@ -66,13 +66,15 @@ public abstract class IntruTreeLite<T> implements IntrusiveIterator<T>,
         eq=q;
         if ((lt_eq_gt & EQ)!=0 && eq!=null) return eq;
         if ((lt_eq_gt & GT)!=0) {
-            if (eq!=null) q=leftmost(getRightLink(eq));
-            if (q!=null) gt=q;
+            T gt2=null;
+            if (eq!=null) gt2=leftmost(getRightLink(eq));
+            if (gt2!=null) gt=gt2;
             if (gt!=null) return gt;
         }
         if ((lt_eq_gt & LT)!=0) {
-            if (eq!=null) q=rightmost(getLeftLink(eq));
-            if (q!=null) lt=q;
+            T lt2=null;
+            if (eq!=null) lt2=rightmost(getLeftLink(eq));
+            if (lt2!=null) lt=lt2;
             if (lt!=null) return lt;
         }
         return null;
