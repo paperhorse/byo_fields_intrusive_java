@@ -285,6 +285,21 @@ public abstract class IntruTreeLite<T> implements IntrusiveIterator<T>,
         
     }
     
+    public interface Visitor<T> {
+        public void visit(T e);
+    }
+    
+    private void visitTree(T q, Visitor<T> v) {
+        if (q==null) return;
+        visitTree(getLeftLink(q),v);
+        v.visit(q);
+        visitTree(getRightLink(q),v);
+    }
+    
+    public void visitAll(Visitor<T> v) {
+        visitTree(root, v);
+    }
+    
     public void printTree() {
         printTree(root,0);
     }

@@ -44,6 +44,14 @@ public class Test6 {
         hd.insert(new SubTest6("CC Zen"));
         hd.insert(new SubTest6("BB Cally"));
         hd.insert(new SubTest6("AA Soolin"));
+        hd.visitAll(new IntruTreeLite.Visitor<SubTest6>() {
+            public void visit(SubTest6 e) {
+                String n=e.name;
+                int p=n.lastIndexOf(' ');
+                if (p>=0) n=n.substring(p+1);
+                System.out.println("Visiting "+n);
+            }
+        });
         hd.printTree();
         
         
