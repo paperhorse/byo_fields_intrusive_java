@@ -168,6 +168,9 @@ public abstract class IntruTreeLite<T> implements IntrusiveIterator<T>,
     
     @Override
     public T iterateNext(T e) {
+        return find_lt_eq_gt(e,GT);
+    }
+/*    public T iterateNext(T e) {
         T q,n=null;
         int c;
         if ((q=getRightLink(e))!=null)
@@ -179,7 +182,7 @@ public abstract class IntruTreeLite<T> implements IntrusiveIterator<T>,
             else q=getRightLink(q);
         }
         return n;
-    }
+    }*/
     
     @Override
     public T iterateLast() {
@@ -188,6 +191,9 @@ public abstract class IntruTreeLite<T> implements IntrusiveIterator<T>,
     
     @Override
     public T iteratePrevious(T e) {
+        return find_lt_eq_gt(e,LT);
+    }
+    /*public T iteratePrevious(T e) {
         T q,n=null;
         int c;
         if ((q=getLeftLink(e))!=null)
@@ -199,7 +205,7 @@ public abstract class IntruTreeLite<T> implements IntrusiveIterator<T>,
             else {n=q;q=getRightLink(q);}
         }
         return n;
-    }
+    }*/
 
     @Override
     public Iterator<T> iterator() {

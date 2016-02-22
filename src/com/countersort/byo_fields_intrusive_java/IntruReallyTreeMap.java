@@ -96,7 +96,29 @@ public abstract class IntruReallyTreeMap<K extends Comparable<K>,T> implements I
                 setRightLink(p,q);
         }
     }
+
+    static final int LT=1;
+    static final int EQ=2;
+    static final int GT=4;
     
+    public T find_lt_eq_gt(K key, int lt_eq_gt) {
+        T gt=null, lt=null, eq=null;
+        int c;
+        T q=root;
+        while (q!=null) {
+            c=getKey(q).compareTo(key);
+            if (c==0) break;
+            if (c>0) {gt=q;q=getLeftLink(q);}
+            else {lt=q;q=getRightLink(q);}
+        }
+        eq=q;
+        if ((lt_eq_gt & EQ)!=0 && eq!=null) return eq;
+        if ((lt_eq_gt & GT)!=0 && gt!=null) return gt;
+        if ((lt_eq_gt & LT)!=0 && lt!=null) return lt;
+        return null;
+    }
+
+
     private T findRebalance(T q, long[] cc) {
         long c=cc[0];
         long otherCount;
