@@ -17,14 +17,11 @@ public class Test6 {
         //hardtest();
     }
 
-    static class SubTest6 /* implements Comparable<SubTest2> */ {
+    static class SubTest6  {
         SubTest6 left, right;
         String name;
         
         public SubTest6(String nm) {name=nm;}
-        /*public int compareTo(SubTest2 o) {
-            return name.compareTo(o.name);
-        }*/
         public String toString() {return name;}
     }
 
@@ -53,6 +50,15 @@ public class Test6 {
             }
         },new SubTest6("BB"), new SubTest6("EEZ"));
         hd.printTree();
+        
+        System.out.println("Find lt eq gt test");
+        SubTest6 qq=new SubTest6("CC Zen");
+        System.out.println("Find = "+hd.find_lt_eq_gt(qq,IntruTreeLite.EQ));
+        System.out.println("Find < "+hd.find_lt_eq_gt(qq,IntruTreeLite.LT));
+        System.out.println("Find > "+hd.find_lt_eq_gt(qq,IntruTreeLite.GT));
+        System.out.println("Find <= "+hd.find_lt_eq_gt(qq,IntruTreeLite.EQ+IntruTreeLite.LT));
+        System.out.println("Find >= "+hd.find_lt_eq_gt(qq,IntruTreeLite.EQ+IntruTreeLite.GT));
+        System.out.println("Find <> "+hd.find_lt_eq_gt(qq,IntruTreeLite.LT+IntruTreeLite.GT));
         
         
         System.out.println("iteration test");

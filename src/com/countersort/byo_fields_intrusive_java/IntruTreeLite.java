@@ -49,9 +49,9 @@ public abstract class IntruTreeLite<T> implements IntrusiveIterator<T>,
         return null;
     }
     
-    static final int LT=1;
-    static final int EQ=2;
-    static final int GT=4;
+    public static final int LT=1;
+    public static final int EQ=2;
+    public static final int GT=4;
     
     public T find_lt_eq_gt(T key, int lt_eq_gt) {
         T gt=null, lt=null, eq=null;
@@ -65,8 +65,16 @@ public abstract class IntruTreeLite<T> implements IntrusiveIterator<T>,
         }
         eq=q;
         if ((lt_eq_gt & EQ)!=0 && eq!=null) return eq;
-        if ((lt_eq_gt & GT)!=0 && gt!=null) return gt;
-        if ((lt_eq_gt & LT)!=0 && lt!=null) return lt;
+        if ((lt_eq_gt & GT)!=0) {
+            if (eq!=null) q=leftmost(getRightLink(eq));
+            if (q!=null) gt=q;
+            if (gt!=null) return gt;
+        }
+        if ((lt_eq_gt & LT)!=0) {
+            if (eq!=null) q=rightmost(getLeftLink(eq));
+            if (q!=null) lt=q;
+            if (lt!=null) return lt;
+        }
         return null;
     }
     
