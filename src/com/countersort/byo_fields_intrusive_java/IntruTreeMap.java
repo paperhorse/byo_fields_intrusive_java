@@ -31,6 +31,14 @@ public abstract class IntruTreeMap<T> implements IntrusiveIterator<T>,
     double alpha=0.6; //should be between 0.51 (balanced) and 0.99
     T root;
     
+    public IntruTreeMap() {
+        this(0.6);
+    }
+    
+    public IntruTreeMap(double alpha) {
+        this.alpha=alpha;
+    }
+    
     public void clear() {
         root=null;
         count=maxcount=0;
