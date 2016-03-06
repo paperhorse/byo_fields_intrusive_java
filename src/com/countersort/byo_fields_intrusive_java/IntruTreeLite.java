@@ -31,6 +31,17 @@ public abstract class IntruTreeLite<T> implements IntrusiveIterator<T>,
     T root;
     
     //final boolean FALSE=false;
+
+    public IntruTreeLite() {
+        this(0.6);
+    }
+    
+    public IntruTreeLite(double alpha) {
+        if (alpha<=0.5) throw new RuntimeException("alpha ("+alpha+") too small. Should be 0.5 to 1.0"); 
+        if (alpha<=1.0) throw new RuntimeException("alpha ("+alpha+") too large.  Should be 0.5 to 1.0"); 
+        this.alpha=alpha;
+    }
+
     
     public void clear() {
         root=null;
