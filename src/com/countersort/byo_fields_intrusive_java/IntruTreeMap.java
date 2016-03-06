@@ -37,7 +37,7 @@ public abstract class IntruTreeMap<T> implements IntrusiveIterator<T>,
     
     public IntruTreeMap(double alpha) {
         if (alpha<=0.5) throw new RuntimeException("alpha ("+alpha+") too small. Should be 0.5 to 1.0"); 
-        if (alpha<=1.0) throw new RuntimeException("alpha ("+alpha+") too large.  Should be 0.5 to 1.0"); 
+        if (alpha>=1.0) throw new RuntimeException("alpha ("+alpha+") too large.  Should be 0.5 to 1.0"); 
         this.alpha=alpha;
     }
     
