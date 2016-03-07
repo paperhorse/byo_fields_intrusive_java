@@ -64,10 +64,17 @@ public abstract class IntruSList<T> {
     
     public void deleteAfter(T before) {
         T n,nn;
-        n=getNextLink(before);
-        if (n==null) return;
-        nn=getNextLink(n);
-        setNextLink(before,nn);
+        if (before!=null) {
+            n=getNextLink(before);
+            if (n==null) return;
+            nn=getNextLink(n);
+            setNextLink(before,nn);
+        } else {
+            n=head;
+            if (n==null) return;
+            head=nn=getNextLink(n);
+        }
+        if (nn==null) tail=before;
         count--;
     }
 
