@@ -9,9 +9,10 @@
 package com.countersort.byo_fields_intrusive_java;
 
 import java.util.Comparator;
+import java.util.Iterator;
+import com.countersort.byo_fields_intrusive_java.CompatibleSListIterator;
 
-
-public abstract class IntruSList<T> {
+public abstract class IntruSList<T> implements Iterable<T> {
     T head;
     T tail;
     long count;
@@ -85,4 +86,9 @@ public abstract class IntruSList<T> {
     public T iterateStart() {
         return head;
     }
+    
+    @Override
+    public Iterator<T> iterator() {
+        return new CompatibleSListIterator(this);
+    } 
 }
