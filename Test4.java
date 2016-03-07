@@ -5,6 +5,7 @@
     MIT licensed
 */
 import com.countersort.byo_fields_intrusive_java.*;
+import java.util.Iterator;
 
 public class Test4 {
     public static void main(String[] args) {
@@ -39,6 +40,19 @@ public class Test4 {
         slist.append(new Node("maureen"));
         for (Node n : slist) {
             System.out.println(n);
-        } 
+        }
+        System.out.println();
+        Iterator<Node> i=slist.iterator();
+        while (i.hasNext()) {
+            Node n2=i.next();
+            if (n2.name.charAt(0)>='p') {
+                System.out.println("deleting "+n2);
+                i.remove();
+            }
+        }
+        for (Node n3 : slist) {
+            System.out.println(n3);
+        }
+        
     }
 }
