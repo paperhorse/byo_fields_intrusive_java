@@ -147,6 +147,48 @@ public abstract class IntruPriorityQueue<T> {
         }
     }
     
+    
+    private T levelNextSameRow(T e) {
+        T p,q;
+        if (e==root) return null;
+        p=getParentLink(e);
+        if (getLeftLink(p)==e) return getRightLink(p);
+        while ((p=levelNextSameRow(p))!=null) {
+            if ((q=getLeftLink(p))!=null) return q;
+            if ((q=getRightLink(p))!=null) return q;
+        }
+        return null;
+    }
+    
+    private T nextRow(T e) {
+        T left=root, q;
+        while (e!=root) {
+            e=getParentLink(e);
+            left=getLeftLink(left);
+        }
+        while (left!=null) {
+            if ((q=getLeftLink(left))!=null) return q;
+            if ((q=getRightLink(left))!=null) return q;
+            left=levelNextSameRow(left);
+        }
+        return null;
+    }
+
+    /*
+        level order iterator
+    */
+    
+    public T levelIterateNext(T e) {
+        T q;
+        if (e==null) return null;
+        q=levelNextSameRow(e);
+        if (q!=null) return q;
+        if (getRightLink(e)!=null) 
+            return nextRow(e);
+        else
+            return null;
+    }
+    
     private void swapWithParent(T q, T p) {
         T l,r;
         T gp,brother;
