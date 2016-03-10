@@ -34,24 +34,35 @@ public class Test3 {
         public int compare(SubTest3 o1, SubTest3 o2) {return o1.value>o2.value ? 1 : -1;}
     }
     
+    static final int N=12;
+    
     static void testStuff() {
         PQManager mgr=new PQManager();
-        SubTest3[] a=new SubTest3[16];
+        SubTest3[] a=new SubTest3[N];
         int i;
-        for (i=0;i<16;i++) {
+        for (i=0;i<N;i++) {
             a[i]=new SubTest3(i);
             mgr.insert(a[i]);
             System.out.println("Inserted "+i);
             mgr.printtree();
         }
+        
+        System.out.println("Level iterating");
+        SubTest3 x=mgr.levelIterateStart();
+        while (x!=null) {
+            System.out.print(x+" ");
+            x=mgr.levelIterateNext(x);
+        }
+        System.out.println();
+        
         System.out.println("Changing Priorities");
-        for (i=0;i<16;i+=3) {
+        for (i=0;i<N;i+=3) {
             a[i].value-=100;
             mgr.changePriority(a[i]);
             mgr.printtree();
         }
         System.out.println("Deleting");
-        for (i=0;i<16;i+=2) {
+        for (i=0;i<N;i+=2) {
             a[i].value-=100;
             mgr.delete(a[i]);
             mgr.printtree();
@@ -59,7 +70,7 @@ public class Test3 {
         
         System.out.println("Extracting");
         while (true) {
-            SubTest3 x=mgr.extractTop();
+            x=mgr.extractTop();
             if (x==null) break;
             System.out.println("extracted "+x);
             mgr.printtree();

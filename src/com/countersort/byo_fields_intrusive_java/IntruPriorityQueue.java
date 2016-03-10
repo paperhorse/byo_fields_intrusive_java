@@ -189,6 +189,8 @@ public abstract class IntruPriorityQueue<T> {
             return null;
     }
     
+    public T levelIterateStart() { return root; }
+    
     private void swapWithParent(T q, T p) {
         T l,r;
         T gp,brother;
