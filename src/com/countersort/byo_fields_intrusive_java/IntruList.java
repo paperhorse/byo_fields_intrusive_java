@@ -118,7 +118,7 @@ public abstract class IntruList<T> implements IntrusiveIterator<T>,
         return p;
     }
     
-    private T merge(T a, T b, Comparator<T> cmp) {
+    private T mergeX(T a, T b, Comparator<T> cmp) {
         T hd=null, tl=null;
         while (a!=null && b!=null) {
             if (cmp.compare(a,b)<=0) {
@@ -138,10 +138,36 @@ public abstract class IntruList<T> implements IntrusiveIterator<T>,
         else setNextLink(tl,a);
         return hd;
     }
+
+    private T merge(T a, T b, Comparator<T> cmp) {
+        T hd, tl;
+        if (cmp.compare(a,b)<=0) {
+            hd=tl=a;a=getNextLink(a);
+        } else {
+            hd=tl=b;b=getNextLink(b);
+        }
+        while (a!=null && b!=null) {
+            if (cmp.compare(a,b)<=0) {
+                setNextLink(tl, a);
+                tl=a;
+                a=getNextLink(a); 
+            } else {
+                setNextLink(tl, b);
+                tl=b;
+                b=getNextLink(b); 
+            }
+        }
+        if (a==null) a=b;
+        //if (tl==null) return a;
+        //else 
+        setNextLink(tl,a);
+        return hd;
+    }
+
     
     private T sort(long cnt,Comparator<T> cmp) {
         T a, b;
-        if (cnt<=0) return null;
+        //if (cnt<=0) return null;
         if (cnt==1) {
             a=head;
             head=getNextLink(a);
@@ -155,6 +181,7 @@ public abstract class IntruList<T> implements IntrusiveIterator<T>,
     }
     
     public void sort(Comparator<T> cmp) {
+        if (count<=0) return;
         head=sort(count, cmp);
         tail=doubleLink(head);
     }
